@@ -1,0 +1,28 @@
+{
+  "name": "audrev_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js",
+    "client-install": "npm install --prefix audrev_ui",
+    "client": "cd ../ && npm start --prefix audrev_ui",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "proxy": "http://localhost:8080/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abponder/audrev_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abponder/audrev_api/issues"
+  },
+  "homepage": "https://github.com/abponder/audrev_api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  }
+}
