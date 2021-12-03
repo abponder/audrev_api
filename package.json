@@ -10,6 +10,7 @@
     "client": "cd ../ && npm start --prefix audrev_ui",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "proxy": "http://localhost:8080/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abponder/audrev_api.git"
