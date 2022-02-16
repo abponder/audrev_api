@@ -8,7 +8,7 @@
     "server": "nodemon server.js",
     "client-install": "npm install --prefix audrev_ui",
     "client": "cd ../ && npm start --prefix audrev_ui",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "proxy": "http://localhost:8080/",
   "repository": {

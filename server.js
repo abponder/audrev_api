@@ -26,5 +26,37 @@ connection.query(
 
 })
 
+app.get('/api/provlist/:cityname', (req, res) => {
+  // simple query
+  console.log(req.params.cityname)
+  console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
+connection.query(
+  // "SELECT * FROM t_newprovider WHERE MedCtr like 'Los Angeles'",
+  `SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`,
+  function(err, results, fields) {
+    console.log(results); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+    res.json(results)
+  }
+);
+  // res.send('Hello World!')
+
+})
+
+app.get('/api/edulist', (req, res) => {
+  // simple query
+connection.query(
+  'SELECT * FROM t_list_specialty;',
+  function(err, results, fields) {
+    console.log(results); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+    res.json(results)
+  }
+);
+  // res.send('Hello World!')
+
+})
+
 app.listen(PORT, () => console.log(`server listening on ${PORT}`));
+
 
