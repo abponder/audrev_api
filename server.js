@@ -26,15 +26,15 @@ connection.query(
 
 })
 
-app.get('/api/provlist/:cityname', (req, res) => {
+app.get('/api/provlist', (req, res) => {
   // simple query
   console.log(req.params.cityname)
-  console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
+  // console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
 connection.query(
   // "SELECT * FROM t_newprovider WHERE MedCtr like 'Los Angeles'",
-  `SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`,
+  "SELECT * FROM q_newprovider_mtgdata;",
   function(err, results, fields) {
-    console.log(results); // results contains rows returned by server
+    //console.log(results); // results contains rows returned by server
     console.log(fields); // fields contains extra meta data about results, if available
     res.json(results)
   }
