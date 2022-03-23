@@ -28,19 +28,33 @@ connection.query(
 
 app.get('/api/provlist', (req, res) => {
   // simple query
-  console.log(req.params.cityname)
+  //console.log(req.params.cityname)
   // console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
 connection.query(
   // "SELECT * FROM t_newprovider WHERE MedCtr like 'Los Angeles'",
-  "SELECT * FROM q_newprovider_mtgdata;",
+  //"SELECT * FROM q_newprovider_mtgdata;",
+  "call 01_newprovider_totbymedctr();",
   function(err, results, fields) {
     //console.log(results); // results contains rows returned by server
-    console.log(fields); // fields contains extra meta data about results, if available
-    res.json(results)
+    //console.log(fields); // fields contains extra meta data about results, if available
+    res.json(results[0])
   }
 );
-  // res.send('Hello World!')
+})
 
+app.get('/api/provmed', (req, res) => {
+  // simple query
+  //console.log(req.params.cityname)
+  // console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
+connection.query(
+  "SELECT * FROM audrev.q_newprovider_mtgdata WHERE MedCtr like 'Los Angeles';",
+  function(err, results, fields) {
+    console.log(results); // results contains rows returned by server
+    //console.log(fields); // fields contains extra meta data about results, if available
+    res.json(results)
+
+  }
+);
 })
 
 app.get('/api/edulist', (req, res) => {
