@@ -42,12 +42,24 @@ connection.query(
 );
 })
 
-app.get('/api/provmed', (req, res) => {
+app.get('/api/provmed/:cityname', (req, res) => {
   // simple query
   //console.log(req.params.cityname)
   // console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
 connection.query(
-  "SELECT * FROM audrev.q_newprovider_mtgdata WHERE MedCtr like 'Los Angeles';",
+  `SELECT * FROM audrev.q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
+  function(err, results, fields) {
+    console.log(results); // results contains rows returned by server
+    //console.log(fields); // fields contains extra meta data about results, if available
+    res.json(results)
+
+  }
+);
+})
+
+app.get('/api/provmed2/:ID_newprov', (req, res) => {
+connection.query(
+  `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
   function(err, results, fields) {
     console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
