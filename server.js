@@ -69,6 +69,18 @@ connection.query(
 );
 })
 
+app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
+  connection.query(
+    `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
+    function(err, results, fields) {
+      console.log(results); // results contains rows returned by server
+      //console.log(fields); // fields contains extra meta data about results, if available
+      res.json(results)
+  
+    }
+  );
+  })
+
 app.get('/api/edulist', (req, res) => {
   // simple query
 connection.query(
