@@ -69,6 +69,20 @@ connection.query(
 );
 })
 
+app.get('/api/provmed3Status', (req, res) => {
+  connection.query(
+    `SELECT audrev.t_list_newprov_statustype.statusDesc FROM audrev.t_list_newprov_statustype 
+     WHERE audrev.t_list_newprov_statustype.active = 1 
+     AND audrev.t_list_newprov_statustype.module = 'New Provider';`,
+    function(err, results, fields) {
+      console.log(results); // results contains rows returned by server
+      //console.log(fields); // fields contains extra meta data about results, if available
+      res.json(results)
+  
+    }
+  );
+  })
+
 app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
   connection.query(
     `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
