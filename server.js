@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 require('dotenv').config();
 const mysql = require('mysql2');
+app.use(express.json());
 
 // create the connection to database
 const connection = mysql.createConnection({
@@ -94,6 +95,23 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
     }
   );
   })
+
+  app.put('/api/provmed2/edit', (req, res) => {
+    // console.log(req.body)
+    connection.query(
+      `UPDATE audrev.t_newprovider_trngphases  
+        SET status='${req.body.status}', status_date=CURDATE(), comments='${req.body.comments}' 
+        WHERE ID_phase='${req.body.ID_phase}';`,
+      function(error, results, fields) {
+        // console.log(results); // results contains rows returned by server
+        // console.log(fields); // fields contains extra meta data about results, if available
+        if (error) return res.json({ error: error });
+        res.json(req.body)
+      }
+    );
+    })
+
+
 
 app.get('/api/edulist', (req, res) => {
   // simple query
