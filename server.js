@@ -18,8 +18,8 @@ app.get('/api', (req, res) => {
 connection.query(
   'SELECT * FROM t_list_locations;',
   function(err, results, fields) {
-    console.log(results); // results contains rows returned by server
-    console.log(fields); // fields contains extra meta data about results, if available
+    // console.log(results); // results contains rows returned by server
+    // console.log(fields); // fields contains extra meta data about results, if available
     res.json(results)
   }
 );
@@ -50,7 +50,7 @@ app.get('/api/provmed/:cityname', (req, res) => {
 connection.query(
   `SELECT * FROM audrev.q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
   function(err, results, fields) {
-    console.log(results); // results contains rows returned by server
+    // console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
     res.json(results)
 
@@ -62,7 +62,7 @@ app.get('/api/provmed2/:ID_newprov', (req, res) => {
 connection.query(
   `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
   function(err, results, fields) {
-    console.log(results); // results contains rows returned by server
+    // console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
     res.json(results)
 
@@ -76,7 +76,7 @@ app.get('/api/provmed3Status', (req, res) => {
      WHERE audrev.t_list_newprov_statustype.active = 1 
      AND audrev.t_list_newprov_statustype.module = 'New Provider';`,
     function(err, results, fields) {
-      console.log(results); // results contains rows returned by server
+      // console.log(results); // results contains rows returned by server
       //console.log(fields); // fields contains extra meta data about results, if available
       res.json(results)
   
@@ -88,7 +88,7 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
   connection.query(
     `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
     function(err, results, fields) {
-      console.log(results); // results contains rows returned by server
+      // console.log(results); // results contains rows returned by server
       //console.log(fields); // fields contains extra meta data about results, if available
       res.json(results)
   
@@ -105,6 +105,7 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
       function(error, results, fields) {
         // console.log(results); // results contains rows returned by server
         // console.log(fields); // fields contains extra meta data about results, if available
+        //console.log("inserted, ID: " + result.insertId);
         if (error) return res.json({ error: error });
         res.json(req.body)
       }
@@ -112,20 +113,43 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
     })
 
 
-
 app.get('/api/edulist', (req, res) => {
   // simple query
 connection.query(
   'SELECT * FROM t_list_specialty;',
   function(err, results, fields) {
-    console.log(results); // results contains rows returned by server
-    console.log(fields); // fields contains extra meta data about results, if available
+    // console.log(results); // results contains rows returned by server
+    // console.log(fields); // fields contains extra meta data about results, if available
     res.json(results)
   }
 );
   // res.send('Hello World!')
 
 })
+
+   app.get('/api/providers', (req, res) => {
+    // simple query
+  connection.query(
+    "SELECT 0 as ID_newprov, 'na' as CPMID, 'na' as NUID, '2021-12-31' as HireDate, 'Please make a Selection' as ProvName, 'na' as ProvType,   'na' as ProvRole, 'na' as MedCtr, 'na' as MedOffice, 'na' as Specialty, 'na' as Dept, 'na' as OverStatus, '2021-12-31' as OverallStatusDate, 0 as ManuallyCreated FROM audrev.t_newprovider_mtgdata Union SELECT * FROM audrev.t_newprovider_mtgdata;",
+    function(err, results, fields) {
+      // console.log(results); // results contains rows returned by server
+      // console.log(fields); // fields contains extra meta data about results, if available
+      res.json(results)
+    }
+  );
+    // res.send('Hello World!')
+  
+  })
+
+  app.post('/api/addmtg', (req, res) => {
+     console.log(req.body)
+
+    // simple query
+  // connection.query(
+    
+  // );
+})
+
 
 app.listen(PORT, () => console.log(`server listening on ${PORT}`));
 
