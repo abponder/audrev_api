@@ -130,7 +130,8 @@ connection.query(
    app.get('/api/providers', (req, res) => {
     // simple query
   connection.query(
-    "SELECT 0 as ID_newprov, 'na' as CPMID, 'na' as NUID, '2021-12-31' as HireDate, 'Please make a Selection' as ProvName, 'na' as ProvType,   'na' as ProvRole, 'na' as MedCtr, 'na' as MedOffice, 'na' as Specialty, 'na' as Dept, 'na' as OverStatus, '2021-12-31' as OverallStatusDate, 0 as ManuallyCreated FROM audrev.t_newprovider_mtgdata Union SELECT * FROM audrev.t_newprovider_mtgdata;",
+    // "SELECT 0 as ID_newprov, 'na' as CPMID, 'na' as NUID, '2021-12-31' as HireDate, 'Please make a Selection' as ProvName, 'na' as ProvType,   'na' as ProvRole, 'na' as MedCtr, 'na' as MedOffice, 'na' as Specialty, 'na' as Dept, 'na' as OverStatus, '2021-12-31' as OverallStatusDate, 0 as ManuallyCreated FROM audrev.t_newprovider_mtgdata Union SELECT * FROM audrev.t_newprovider_mtgdata;",
+    "SELECT * FROM audrev.t_newprovider_mtgdata;",
     function(err, results, fields) {
       // console.log(results); // results contains rows returned by server
       // console.log(fields); // fields contains extra meta data about results, if available
