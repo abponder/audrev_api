@@ -100,7 +100,7 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
     // console.log(req.body)
     connection.query(
       `UPDATE audrev.t_newprovider_trngphases  
-        SET status='${req.body.status}', status_date=CURDATE(), comments='${req.body.comments}' 
+        SET status='${req.body.status}', status_date=CURDATE(), comments='${req.body.comments}', reviewer='${req.body.reviewer}' 
         WHERE ID_phase='${req.body.ID_phase}';`,
       function(error, results, fields) {
         // console.log(results); // results contains rows returned by server
@@ -131,7 +131,7 @@ connection.query(
     // simple query
   connection.query(
     // "SELECT 0 as ID_newprov, 'na' as CPMID, 'na' as NUID, '2021-12-31' as HireDate, 'Please make a Selection' as ProvName, 'na' as ProvType,   'na' as ProvRole, 'na' as MedCtr, 'na' as MedOffice, 'na' as Specialty, 'na' as Dept, 'na' as OverStatus, '2021-12-31' as OverallStatusDate, 0 as ManuallyCreated FROM audrev.t_newprovider_mtgdata Union SELECT * FROM audrev.t_newprovider_mtgdata;",
-    "SELECT * FROM audrev.t_newprovider_mtgdata;",
+    "SELECT * FROM audrev.t_list_newprov_providers;",
     function(err, results, fields) {
       // console.log(results); // results contains rows returned by server
       // console.log(fields); // fields contains extra meta data about results, if available
@@ -143,12 +143,24 @@ connection.query(
   })
 
   app.post('/api/addmtg', (req, res) => {
-     console.log(req.body)
+     console.log('api/addmtg', req.body)
+     connection.query(
+      `INSERT INTO audrev.t_newprovider_mtgdata (CPMID, NUID, HireDate, ProvName, ProvType, ProvRole, MedCtr, MedOffice, Specialty, Dept, OverallStatus, OverallStatusDate, ManuallyCreated) 
+      VALUES 
+      ('8899101', 'Z999101', '2021-12-25', 'O. K. Roberts', 'PHYSICIAN (M.D.)', 'PHYSICIAN (M.D.)', 'Los Angeles', 'Darpa', 'Family Medicine', 'Psychiatry', 'Open', '2022-07-17', '0');`,
 
-    // simple query
-  // connection.query(
-    
-  // );
+      //  'INSERT INTO audrev.t_newprovider_mtgdata (CPMID, NUID, HireDate, ProvName, ProvType, ProvRole, MedCtr, `MedOffice`, `Specialty`, `Dept`, `OverallStatus`, `OverallStatusDate`, `ManuallyCreated`) 
+      //  VALUES ('8899101', 'Z999101', '2021-12-25', 'O. K. Roberts', 'PHYSICIAN (M.D.)', 'PHYSICIAN (M.D.)', 'Los Angeles', 'Darpa', 'Family Medicine', 'Psychiatry', 'Open', '2022-07-17', '0');'
+
+      // `UPDATE audrev.t_newprovider_trngphases  
+      //   SET status='${req.body.provider}', status_date=CURDATE(), reviewer='${req.body.reviewer}' 
+      //   ;`,
+      function(error, results, fields) {
+        console.log('INSERT ID:',results.insertId);
+        if (error) return res.json({ error: error });
+        res.json(req.body)
+      }
+    );
 })
 
 
