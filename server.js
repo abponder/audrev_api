@@ -145,16 +145,11 @@ connection.query(
   app.post('/api/addmtg', (req, res) => {
      console.log('api/addmtg', req.body)
      connection.query(
-      `INSERT INTO audrev.t_newprovider_mtgdata (CPMID, NUID, HireDate, ProvName, ProvType, ProvRole, MedCtr, MedOffice, Specialty, Dept, OverallStatus, OverallStatusDate, ManuallyCreated) 
-      VALUES 
-      ('8899101', 'Z999101', '2021-12-25', 'O. K. Roberts', 'PHYSICIAN (M.D.)', 'PHYSICIAN (M.D.)', 'Los Angeles', 'Darpa', 'Family Medicine', 'Psychiatry', 'Open', '2022-07-17', '0');`,
+      `call 01_newprovider_createnewmeeting('${req.body.ProvName}','${req.body.reviewer}');`,
+      // `INSERT INTO audrev.t_newprovider_mtgdata (CPMID, NUID, HireDate, ProvName, ProvType, ProvRole, MedCtr, MedOffice, Specialty, Dept, OverallStatus, OverallStatusDate, ManuallyCreated) 
+      // VALUES 
+      // ('8899101', 'Z999101', '2021-12-25', 'O. K. Roberts', 'PHYSICIAN (M.D.)', 'PHYSICIAN (M.D.)', 'Los Angeles', 'Darpa', 'Family Medicine', 'Psychiatry', 'Open', '2022-07-17', '0');`,
 
-      //  'INSERT INTO audrev.t_newprovider_mtgdata (CPMID, NUID, HireDate, ProvName, ProvType, ProvRole, MedCtr, `MedOffice`, `Specialty`, `Dept`, `OverallStatus`, `OverallStatusDate`, `ManuallyCreated`) 
-      //  VALUES ('8899101', 'Z999101', '2021-12-25', 'O. K. Roberts', 'PHYSICIAN (M.D.)', 'PHYSICIAN (M.D.)', 'Los Angeles', 'Darpa', 'Family Medicine', 'Psychiatry', 'Open', '2022-07-17', '0');'
-
-      // `UPDATE audrev.t_newprovider_trngphases  
-      //   SET status='${req.body.provider}', status_date=CURDATE(), reviewer='${req.body.reviewer}' 
-      //   ;`,
       function(error, results, fields) {
         console.log('INSERT ID:',results.insertId);
         if (error) return res.json({ error: error });
