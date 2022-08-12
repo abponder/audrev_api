@@ -97,7 +97,7 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
   })
 
   app.put('/api/provmed2/edit', (req, res) => {
-    // console.log(req.body)
+    //console.log(req.body)
     connection.query(
       `UPDATE audrev.t_newprovider_trngphases  
         SET status='${req.body.status}', status_date=CURDATE(), comments='${req.body.comments}', reviewer='${req.body.reviewer}' 
@@ -111,6 +111,19 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
       }
     );
     })
+
+    app.put('/api/provmed2/completed', (req, res) => {
+      // console.log("status:",req.body.ID_newprov, req.body.status)
+      connection.query(
+        `UPDATE audrev.t_newprovider_mtgdata  
+          SET OverallStatus='${req.body.status}' 
+          WHERE ID_newprov='${req.body.ID_newprov}';`,
+        function(error, results, fields) {
+          if (error) return res.json({ error: error });
+          res.json(req.body)
+        }
+      );
+      })
 
 
 app.get('/api/edulist', (req, res) => {
@@ -146,9 +159,6 @@ connection.query(
      console.log('api/addmtg', req.body)
      connection.query(
       `call 01_newprovider_createnewmeeting('${req.body.ProvName}','${req.body.reviewer}');`,
-      // `INSERT INTO audrev.t_newprovider_mtgdata (CPMID, NUID, HireDate, ProvName, ProvType, ProvRole, MedCtr, MedOffice, Specialty, Dept, OverallStatus, OverallStatusDate, ManuallyCreated) 
-      // VALUES 
-      // ('8899101', 'Z999101', '2021-12-25', 'O. K. Roberts', 'PHYSICIAN (M.D.)', 'PHYSICIAN (M.D.)', 'Los Angeles', 'Darpa', 'Family Medicine', 'Psychiatry', 'Open', '2022-07-17', '0');`,
 
       function(error, results, fields) {
         console.log('INSERT ID:',results.insertId);
