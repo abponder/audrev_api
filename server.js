@@ -169,6 +169,18 @@ connection.query(
 })
 
 
+app.delete('/api/deletemtg', (req, res) => {
+  console.log(req.body)
+connection.query(
+  `call audrev.01_newprovider_deletemtg('${req.body.idnewprov}');`,
+  function(err, results, fields) {
+    res.json(results)
+  }
+);
+  
+})
+
+
 app.listen(PORT, () => console.log(`server listening on ${PORT}`));
 
 
