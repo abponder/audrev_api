@@ -17,9 +17,10 @@ app.get('/api', (req, res) => {
   // simple query
 connection.query(
   'SELECT * FROM t_list_locations;',
-  function(err, results, fields) {
+  function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     // console.log(fields); // fields contains extra meta data about results, if available
+    if (error) return res.json({ error: error });
     res.json(results)
   }
 );
@@ -35,9 +36,10 @@ connection.query(
   // "SELECT * FROM t_newprovider WHERE MedCtr like 'Los Angeles'",
   //"SELECT * FROM q_newprovider_mtgdata;",
   "call 01_newprovider_totbymedctr();",
-  function(err, results, fields) {
+  function(error, results, fields) {
     //console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
+    if (error) return res.json({ error: error });
     res.json(results[0])
   }
 );
@@ -49,9 +51,10 @@ app.get('/api/provmed/:cityname', (req, res) => {
   // console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
 connection.query(
   `SELECT * FROM audrev.q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
-  function(err, results, fields) {
+  function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
+    if (error) return res.json({ error: error });
     res.json(results)
 
   }
@@ -61,9 +64,10 @@ connection.query(
 app.get('/api/provmed2/:ID_newprov', (req, res) => {
 connection.query(
   `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
-  function(err, results, fields) {
+  function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
+    if (error) return res.json({ error: error });
     res.json(results)
 
   }
@@ -75,9 +79,10 @@ app.get('/api/provmed3Status', (req, res) => {
     `SELECT audrev.t_list_newprov_statustype.statusDesc FROM audrev.t_list_newprov_statustype 
      WHERE audrev.t_list_newprov_statustype.active = 1 
      AND audrev.t_list_newprov_statustype.module = 'New Provider';`,
-    function(err, results, fields) {
+    function(error, results, fields) {
       // console.log(results); // results contains rows returned by server
       //console.log(fields); // fields contains extra meta data about results, if available
+      if (error) return res.json({ error: error });
       res.json(results)
   
     }
@@ -87,9 +92,10 @@ app.get('/api/provmed3Status', (req, res) => {
 app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
   connection.query(
     `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
-    function(err, results, fields) {
+    function(error, results, fields) {
       // console.log(results); // results contains rows returned by server
       //console.log(fields); // fields contains extra meta data about results, if available
+      if (error) return res.json({ error: error });
       res.json(results)
   
     }
@@ -133,6 +139,7 @@ connection.query(
   function(err, results, fields) {
     // console.log(results); // results contains rows returned by server
     // console.log(fields); // fields contains extra meta data about results, if available
+    if (error) return res.json({ error: error });
     res.json(results)
   }
 );
@@ -145,9 +152,10 @@ connection.query(
   connection.query(
     // "SELECT 0 as ID_newprov, 'na' as CPMID, 'na' as NUID, '2021-12-31' as HireDate, 'Please make a Selection' as ProvName, 'na' as ProvType,   'na' as ProvRole, 'na' as MedCtr, 'na' as MedOffice, 'na' as Specialty, 'na' as Dept, 'na' as OverStatus, '2021-12-31' as OverallStatusDate, 0 as ManuallyCreated FROM audrev.t_newprovider_mtgdata Union SELECT * FROM audrev.t_newprovider_mtgdata;",
     "SELECT * FROM audrev.t_list_newprov_providers;",
-    function(err, results, fields) {
+    function(error, results, fields) {
       // console.log(results); // results contains rows returned by server
       // console.log(fields); // fields contains extra meta data about results, if available
+      if (error) return res.json({ error: error });
       res.json(results)
     }
   );
@@ -173,7 +181,8 @@ app.delete('/api/deletemtg', (req, res) => {
   console.log(req.body)
 connection.query(
   `call audrev.01_newprovider_deletemtg('${req.body.idnewprov}');`,
-  function(err, results, fields) {
+  function(error, results, fields) {
+    if (error) return res.json({ error: error });
     res.json(results)
   }
 );
