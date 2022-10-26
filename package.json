@@ -8,7 +8,8 @@
     "server": "nodemon server.js",
     "client-install": "npm install --prefix audrev_ui",
     "client": "cd ../ && npm start --prefix audrev_ui",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "start:dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node server.js"
   },
   "proxy": "http://localhost:8080/",
   "repository": {
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/abponder/audrev_api#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mysql2": "^2.3.3",
     "nodemon": "^2.0.12"
   }
 }
