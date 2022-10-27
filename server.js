@@ -135,8 +135,8 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
 app.get('/api/edulist', (req, res) => {
   // simple query
 connection.query(
-  'SELECT * FROM t_list_specialty;',
-  function(err, results, fields) {
+  'SELECT * FROM audrev.t_list_specialty',
+  function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     // console.log(fields); // fields contains extra meta data about results, if available
     if (error) return res.json({ error: error });
