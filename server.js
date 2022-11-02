@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
 });
 
 app.get('/api', (req, res) => {
-  // simple query
+  // simple query 2
 connection.query(
   'SELECT * FROM t_list_locations;',
   function(error, results, fields) {
