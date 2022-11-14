@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 8080;
 // require('dotenv').config();
+//more notes
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
