@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 8080;
-require('dotenv').config();
+// require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const mysql = require('mysql2');
 app.use(express.json());
 
