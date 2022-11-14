@@ -10,7 +10,7 @@ const mysql = require('mysql2');
 app.use(express.json());
 
 // create the connection to database
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
   host:process.env.host,
   user:process.env.user,
   database:process.env.database,
