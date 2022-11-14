@@ -55,7 +55,8 @@ app.get('/api/provmed/:cityname', (req, res) => {
   //console.log(req.params.cityname)
   // console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
 connection.query(
-  `SELECT * FROM audrev.q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
+  // `SELECT * FROM audrev.q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
+  `SELECT * FROM heroku_c189fd6f35659cb.q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
   function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
