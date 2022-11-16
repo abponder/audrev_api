@@ -20,7 +20,7 @@ const connection = mysql.createPool({
 app.get('/api', (req, res) => {
   // simple query 2
 connection.query(
-  'SELECT * FROM t_list_locations;',
+  'SELECT * FROM heroku_c189fd6f35659cb.t_list_locations;',
   function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     // console.log(fields); // fields contains extra meta data about results, if available
@@ -40,7 +40,8 @@ app.get('/api/provlist', (req, res) => {
 connection.query(
   // "SELECT * FROM t_newprovider WHERE MedCtr like 'Los Angeles'",
   //"SELECT * FROM q_newprovider_mtgdata;",
-  "call 01_newprovider_totbymedctr();",
+ // "call 01_newprovider_totbymedctr();",
+  "heroku_c189fd6f35659cb.call 01_newprovider_totbymedctr();",
   function(error, results, fields) {
     //console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
@@ -69,7 +70,8 @@ connection.query(
 
 app.get('/api/provmed2/:ID_newprov', (req, res) => {
 connection.query(
-  `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
+  //`SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
+  `SELECT * FROM heroku_c189fd6f35659cb.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
   function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
