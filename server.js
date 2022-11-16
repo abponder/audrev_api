@@ -41,7 +41,7 @@ connection.query(
   // "SELECT * FROM t_newprovider WHERE MedCtr like 'Los Angeles'",
   //"SELECT * FROM q_newprovider_mtgdata;",
  // "call 01_newprovider_totbymedctr();",
-  "heroku_c189fd6f35659cb.call 01_newprovider_totbymedctr();",
+  "call heroku_c189fd6f35659cb.call 01_newprovider_totbymedctr();",
   function(error, results, fields) {
     //console.log(results); // results contains rows returned by server
     //console.log(fields); // fields contains extra meta data about results, if available
