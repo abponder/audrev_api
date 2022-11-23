@@ -20,7 +20,8 @@ const connection = mysql.createPool({
 app.get('/api', (req, res) => {
   // simple query 2
 connection.query(
-  'SELECT * FROM heroku_c189fd6f35659cb.t_list_locations;',
+  //'SELECT * FROM heroku_c189fd6f35659cb.t_list_locations;',
+  'SELECT * FROM t_list_locations;',
   function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     // console.log(fields); // fields contains extra meta data about results, if available
