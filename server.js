@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
 const PORT = process.env.PORT || 8080;
 // require('dotenv').config();
 //more notes
@@ -7,6 +8,9 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 const mysql = require('mysql2');
+app.use(cors({
+  origin: 'https://audrevui.herokuapp.com'
+}));
 app.use(express.json());
 
 // create the connection to database

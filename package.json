@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/abponder/audrev_api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "mysql2": "^2.3.3",
