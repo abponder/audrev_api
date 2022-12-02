@@ -61,7 +61,7 @@ app.get('/api/provmed/:cityname', (req, res) => {
   //console.log(req.params.cityname)
   // console.log(`SELECT * FROM t_newprovider WHERE MedCtr like '${req.params.cityname}'`)
 connection.query(
-  // `SELECT * FROM audrev.q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
+  // `SELECT * FROM q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
   `SELECT * FROM heroku_c189fd6f35659cb.q_newprovider_mtgdata WHERE MedCtr like '${req.params.cityname}';`,
   function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
@@ -75,7 +75,7 @@ connection.query(
 
 app.get('/api/provmed2/:ID_newprov', (req, res) => {
 connection.query(
-  //`SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
+  //`SELECT * FROM q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
   `SELECT * FROM heroku_c189fd6f35659cb.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
   function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
@@ -89,9 +89,9 @@ connection.query(
 
 app.get('/api/provmed3Status', (req, res) => {
   connection.query(
-    `SELECT audrev.t_list_newprov_statustype.statusDesc FROM audrev.t_list_newprov_statustype 
-     WHERE audrev.t_list_newprov_statustype.active = 1 
-     AND audrev.t_list_newprov_statustype.module = 'New Provider';`,
+    `SELECT t_list_newprov_statustype.statusDesc FROM t_list_newprov_statustype 
+     WHERE t_list_newprov_statustype.active = 1 
+     AND t_list_newprov_statustype.module = 'New Provider';`,
     function(error, results, fields) {
       // console.log(results); // results contains rows returned by server
       //console.log(fields); // fields contains extra meta data about results, if available
@@ -104,7 +104,7 @@ app.get('/api/provmed3Status', (req, res) => {
 
 app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
   connection.query(
-    `SELECT * FROM audrev.q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
+    `SELECT * FROM q_newprovider_phasesbyprovider WHERE ID_newprov = '${req.params.ID_newprov}';`,
     function(error, results, fields) {
       // console.log(results); // results contains rows returned by server
       //console.log(fields); // fields contains extra meta data about results, if available
@@ -118,7 +118,7 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
   app.put('/api/provmed2/edit', (req, res) => {
     //console.log(req.body)
     connection.query(
-      `UPDATE audrev.t_newprovider_trngphases  
+      `UPDATE t_newprovider_trngphases  
         SET status='${req.body.status}', status_date=CURDATE(), comments='${req.body.comments}', reviewer='${req.body.reviewer}' 
         WHERE ID_phase='${req.body.ID_phase}';`,
       function(error, results, fields) {
@@ -134,7 +134,7 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
     app.put('/api/provmed2/completed', (req, res) => {
       // console.log("status:",req.body.ID_newprov, req.body.status)
       connection.query(
-        `UPDATE audrev.t_newprovider_mtgdata  
+        `UPDATE t_newprovider_mtgdata  
           SET OverallStatus='${req.body.status}' 
           WHERE ID_newprov='${req.body.ID_newprov}';`,
         function(error, results, fields) {
@@ -148,7 +148,7 @@ app.get('/api/provmed3/:idnewprov/:idphase', (req, res) => {
 app.get('/api/edulist', (req, res) => {
   // simple query
 connection.query(
-  'SELECT * FROM audrev.t_list_specialty',
+  'SELECT * FROM t_list_specialty',
   function(error, results, fields) {
     // console.log(results); // results contains rows returned by server
     // console.log(fields); // fields contains extra meta data about results, if available
@@ -163,8 +163,8 @@ connection.query(
    app.get('/api/providers', (req, res) => {
     // simple query
   connection.query(
-    // "SELECT 0 as ID_newprov, 'na' as CPMID, 'na' as NUID, '2021-12-31' as HireDate, 'Please make a Selection' as ProvName, 'na' as ProvType,   'na' as ProvRole, 'na' as MedCtr, 'na' as MedOffice, 'na' as Specialty, 'na' as Dept, 'na' as OverStatus, '2021-12-31' as OverallStatusDate, 0 as ManuallyCreated FROM audrev.t_newprovider_mtgdata Union SELECT * FROM audrev.t_newprovider_mtgdata;",
-    //"SELECT * FROM audrev.t_list_newprov_providers;",
+    // "SELECT 0 as ID_newprov, 'na' as CPMID, 'na' as NUID, '2021-12-31' as HireDate, 'Please make a Selection' as ProvName, 'na' as ProvType,   'na' as ProvRole, 'na' as MedCtr, 'na' as MedOffice, 'na' as Specialty, 'na' as Dept, 'na' as OverStatus, '2021-12-31' as OverallStatusDate, 0 as ManuallyCreated FROM t_newprovider_mtgdata Union SELECT * FROM t_newprovider_mtgdata;",
+    //"SELECT * FROM t_list_newprov_providers;",
     "SELECT * FROM heroku_c189fd6f35659cb.t_list_newprov_providers;",
     function(error, results, fields) {
       // console.log(results); // results contains rows returned by server
@@ -194,7 +194,7 @@ connection.query(
 app.delete('/api/deletemtg', (req, res) => {
   console.log(req.body)
 connection.query(
-  `call audrev.01_newprovider_deletemtg('${req.body.idnewprov}');`,
+  `call 01_newprovider_deletemtg('${req.body.idnewprov}');`,
   function(error, results, fields) {
     if (error) return res.json({ error: error });
     res.json(results)
