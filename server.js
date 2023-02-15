@@ -1,6 +1,13 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
+
+var session  = require('express-session');
+var cookieParser = require('cookie-parser');
+
+var passport = require('passport');
+var flash    = require('connect-flash');
+
 const PORT = process.env.PORT || 8080;
 // require('dotenv').config();
 //more notes
@@ -9,7 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const mysql = require('mysql2');
 app.use(cors({
-  origin: 'https://audrevui.herokuapp.com'
+  origin: ['https://audrevui.herokuapp.com', 'http://localhost:3000']
 }));
 app.use(express.json());
 
