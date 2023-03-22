@@ -5,11 +5,7 @@ module.exports = function(app, passport, connection) {
   });
 
 // process the login form
-app.post('/api/login', passport.authenticate('local-login', {
-  successRedirect : '/api/profile', // redirect to the secure profile section
-  failureRedirect : '/api/login', // redirect back to the signup page if there is an error
-  failureFlash : true // allow flash messages
-}),
+app.post('/api/login', passport.authenticate('local-login'),
 function(req, res) {
   console.log("hello");
 
@@ -18,8 +14,15 @@ function(req, res) {
   } else {
     req.session.cookie.expires = false;
   }
-res.redirect('/');
+  res.json({success:true})
 });
+
+app.get('/api/logout', function(req, res) {
+  req.logout();
+  res.json({success:true})
+});
+
+
 
 app.get('/api', (req, res) => {
   // simple query 2
@@ -203,10 +206,14 @@ connection.query(
   
 })
 
+}
 
+function isLoggedIn(req, res, next) {
+  console.log("isAuthenticated ", req.isAuthenticated())
+// if user is authenticated in the session, carry on
+if (req.isAuthenticated())
+  return next();
 
-
-
-
-
+// if they aren't redirect them to the home page
+res.redirect('/');
 }
