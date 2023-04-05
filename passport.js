@@ -63,7 +63,8 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (rows.length) {
-                    return done(null, false, {error:'That username is already taken.'});
+                    console.log(rows)
+                    return done(null);
                 } else {
                     // if there is no user with that username
                     // create the user
@@ -108,13 +109,14 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (!rows.length) {
-                    return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    // wrong user name
+                    return done(null); 
                 }
 
                 // if the user is found but the password is wrong
                 if (!bcrypt.compareSync(password, rows[0].password))
-                    
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                    //wrong username
+                return done(null); 
                 console.log(rows[0])
                 // all is well, return successful user
                 return done(null, rows[0]);

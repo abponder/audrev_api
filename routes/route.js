@@ -1,7 +1,12 @@
 module.exports = function(app, passport, connection) {
 
-	app.post('/api/signup', passport.authenticate('local-signup'),function(req,res){
-    res.json({success:true})
+	app.post('/api/signup', passport.authenticate('local-signup'),function(req,res,data){
+   console.log("testing")
+    // console.log('data:',data)
+    // if(data){
+    //   res.json(data)
+    // }
+    res.json(data)
   });
 
 // process the login form
